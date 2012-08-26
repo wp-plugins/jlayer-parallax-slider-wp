@@ -1,0 +1,109 @@
+.ti-jlayer-slideshow{
+    overflow: hidden;
+    height: 500px;
+    position:relative;
+    border: 1px solid #ccc;
+    margin: 0px auto;
+    max-width: 100%;
+    padding: 5px;
+    background: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 4px 10px rgba(0,0,0, .4);
+    -moz-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+}
+
+.ti-jlayer-slideshow .layer{
+    position: relative;
+    z-index: 10;
+}
+
+.ti-jlayer-slideshow .ti-jlayer-left,
+.ti-jlayer-slideshow .ti-jlayer-right{
+    position: absolute;
+    width:50px;
+    height: 50px;
+    z-index: 250;
+    top:50%;
+    background: #fff url(../images/slider-icons.png);
+    border-radius: 5px;
+}
+.ti-jlayer-slideshow .ti-jlayer-left{
+    background-position: -50px 0px;
+    left: 0px;
+}
+.ti-jlayer-slideshow .jlayer-text{
+    display: table;
+}
+.ti-jlayer-slideshow .ti-jlayer-right{
+    right: 0;
+}
+.ti-jlayer-slideshow .ti-jlayer-vp{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    z-index: 1500;
+}
+.ti-jlayer-slideshow .c-layer{
+    z-index: 200;
+}
+.ti-jlayer-slideshow .p-layer{
+    z-index: 100;
+}
+.ti-jlayer-slideshow .bg{
+    width: 100%;
+    height: 100%;
+}
+.ti-jlayer-slideshow .anim{
+    position: absolute;
+}
+.ti-jlayer-slideshow .c-layer .anim{
+    z-index: 100;
+}
+.ti-jlayer-slideshow span.anim{
+
+}
+.ti-jlayer-slideshow .video{
+    z-index: 60;
+    background: #f2f2f2;
+    border: 1px solid #dddddd;
+}
+.ti-jlayer-slideshow .c-layer .video{
+    z-index: 400;
+    display: block;
+}
+.ti-jlayer-slideshow .video-focus{
+    z-index: 1500!important;
+}
+.bullets{
+    display: block;
+    width:95px;
+    zoom: 1;
+    margin: 0px auto;
+    border-radius: 5px;
+}
+.bullets li{
+    display: inline-block;
+    *display:inline;
+    zoom: 1;
+}
+.bullets li a{
+    *display:inline;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url('../images/slider-icons.png') -115px 0px;
+}
+.bullets li a.active{
+    background-position: -115px -25px;
+}
+.ti-jlayer-slideshow .ti-loading-slider{
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: url('../images/jlayer-loading.gif') center center #ffffff no-repeat;
+    position: absolute;
+}
