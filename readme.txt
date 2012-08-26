@@ -19,7 +19,7 @@ The plugin also features a powerful inbuilt editor, that will allow you to confi
 
  [jLayer Parallax Slider homepage](http://unizoe.com/product/jlayer-parallax-wordpress-plugin/ "Plugin homepage")
 
- [jLayer Parallax Slider demo(http://unizoe.com/twist-it-demo/slider-demo/ "Plugin demo")
+ [jLayer Parallax Slider demo](http://unizoe.com/twist-it-demo/slider-demo/ "Plugin demo")
 
 == Installation ==
 
