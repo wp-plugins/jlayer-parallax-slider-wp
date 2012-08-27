@@ -17,9 +17,14 @@
                 font-size: 20px;
             }
         </style>
-        <script type="text/javascript" src="<?php echo plugins_url('js/jquery.js', dirname(__FILE__)); ?>"/></script>
+    <?php
+    add_action('admin_print_scripts','ls_iframe_res');
+    function ls_iframe_res(){
+        wp_enqueue_script('jquery');
+    }
+    do_action('admin_print_scripts');?>
     <script type="text/javascript">
-        $(document).ready(function(){
+        jQuery(document).ready(function($){
             $("#ti-insert-slide").live("click",function(){
                 var slides=Array();
                 $(".sp-ls-slider-iframe").each(function(){
