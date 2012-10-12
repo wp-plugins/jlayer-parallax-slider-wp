@@ -67,7 +67,7 @@ add_action("admin_menu", 'jLayerWPMenu');
 function jLayerWPMenu() {
     global $jlayer_wp;
     $page = add_submenu_page('themes.php', 'jLayer Parallax Slider', 'jLayer Parallax Slider', 'manage_options', 'jlayer-parallax-slider', array($jlayer_wp, 'getAdminPage'));
-    add_action('admin_print_styles-' . $page, 'jLayerWPRes');
+    add_action('admin_print_styles', 'jLayerWPRes');
 }
 
 /**
@@ -78,8 +78,11 @@ function jLayerWPMenu() {
 function jLayerWPRes() {
     wp_enqueue_style('jlayer-admin', plugins_url('css/jlayer.css', __FILE__));
     wp_enqueue_style('jlayer-font-icons', plugins_url('css/symbols/stylesheet.css', __FILE__));
+    wp_enqueue_style('jlayer-sansation-bold', plugins_url('css/sansation-bold/stylesheet.css', __FILE__));
+    wp_enqueue_style('jlayer-open-sans-light', plugins_url('css/open-sans-light/stylesheet.css', __FILE__));
+    wp_enqueue_style('jlayer-ballpark', plugins_url('css/ballpark/stylesheet.css', __FILE__));
     wp_enqueue_style(array('media-upload', 'thickbox', 'farbtastic'));
-    wp_enqueue_script(array('jquery', 'media-upload', 'thickbox', 'jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-sortable', 'farbtastic'));
+    wp_enqueue_script(array('jquery', 'media-upload', 'thickbox', 'jquery-ui-core','jquery-ui-widget','jquery-ui-mouse','jquery-ui-resizable', 'jquery-ui-draggable', 'jquery-ui-sortable', 'farbtastic'));
     wp_enqueue_script('jquery-prompt', plugins_url('js/jquery-impromptu.4.0.min.js', __FILE__));
     wp_enqueue_script('jlayer-admin', plugins_url('js/admin-ls.js', __FILE__));
     $admin_ls_loc = array(
@@ -208,8 +211,10 @@ function jlayer_parallax($atts = null, $content = null) {
                                             echo '<div class="bg anim" id="' . $id . '" style="background-color:' . $elem->background_color . ';height:' . $slider->height . 'px;"></div>';
                                             break;
                                         case 'text':
-                                            echo '<span id="' . $id . '" class="anim rotate jlayer-text" style="color:' . $elem->color . ';font-size:' . $elem->text_size . ';line-height:' . $elem->text_size . ';">' . $elem->text . '</span>';
+                                            echo '<div id="' . $id . '" class="anim jlayer-text font-' . $elem->font_family . '" style="color:' . $elem->color . ';font-size:' . $elem->text_size . ';line-height:' . $elem->text_size . '; width:' . $elem->width . 'px;height:' . $elem->height . 'px;">' . $elem->text . '</div>';
                                             break;
+                                        case 'link':
+                                            echo '<a href="'.$elem->href.'" class="anim" id="'.$id.'">'.$elem->label.'</a>';
                                     }
                                     $animations[] = '<input type="hidden" id="' . $id . '-anim" value=\'{"top":"' . $elem->top . '","left":"' . $elem->left . '","duration":"' . $elem->duration . '", "dir":"' . $elem->direction . '", "delay":"' . $elem->delay . '","transition":"' . $elem->easing . '","r_easing":"' . $elem->r_easing . '","r_times":"' . $elem->r_times . '","r_duration":"' . $elem->r_duration . '","r_delay":"' . $elem->r_delay . '"}\' />';
                                     echo "\n";
@@ -254,6 +259,9 @@ function jlayer_site_head() {
     wp_enqueue_script("jlayer-easing", plugins_url("js/jquery.easing.1.3.js", __FILE__));
     wp_enqueue_script("jlayer-parallax", plugins_url("js/jlayer.js", __FILE__));
     wp_enqueue_style("jlayer-parallax-css", plugins_url("css/jlayer-site.css", __FILE__));
+    wp_enqueue_style('jlayer-sansation-bold', plugins_url('css/sansation-bold/stylesheet.css', __FILE__));
+    wp_enqueue_style('jlayer-open-sans-light', plugins_url('css/open-sans-light/stylesheet.css', __FILE__));
+    wp_enqueue_style('jlayer-ballpark', plugins_url('css/ballpark/stylesheet.css', __FILE__));
 }
 
 if (!function_exists("sp_admin_leftmenu")) {

@@ -46,7 +46,6 @@
             var elements=layer.find(".anim");
             layer.addClass("c-layer");
             if(elem.e.find(".ti-loading-slider").length){
-                console.log("first call");
                 elements.each(function(){
                     var obj=$.parseJSON($("#"+$(this).attr('id')+"-anim").val());
                     $(this).css('top' , obj.top+"px");
@@ -91,7 +90,6 @@
                 jLayerCSS($(this),{
                     'type':'rotation'
                 },0);
-                //console.log(obj);
                 if(obj.r_times){
                     jLayerAnimate({
                         'elem':$(this),
@@ -160,6 +158,7 @@
             }, options.delay)
         }
         window.jLayer_animations=Array();
+        window.yt_players=Array();
         var jLayerAnimateLoop=function(options){
             elem=options.elem;
             elem_main=elem.parents(".layer");
@@ -232,7 +231,6 @@
             elem.e.find(".layer").each(function(){
                 $.each($.data(this),function(k,v){
                     clearInterval(v); 
-                //console.log(v);
                 });
                 $.data(this,{});
             });
@@ -267,6 +265,12 @@
             elem.e.find(".p-layer").removeClass("p-layer");
             var elements=elem.e.find(".c-layer").find('.anim');
             elem.e.find(".c-layer").addClass("p-layer").removeClass("c-layer");
+            var zIndexNumber = 1000;
+            // Put your target element(s) in the selector below!
+            elem.e.find('.anim').each(function(){
+                $(this).css('z-index',zIndexNumber);
+                    
+            });
             elements.each(function(){
                 var obj=$.parseJSON($("#"+$(this).attr('id')+"-anim").val());
                 if(!$(this).hasClass("bg")){
@@ -368,7 +372,6 @@
             if(data.event=="pause"||data.event=="finish"){
                 $(".c-layer").each(function(){
                     if($(this).find(".vim-video").length){
-                        console.log("found");
                         jLayerAutoNext($(this).parents(".ti-jlayer-slideshow"));
                     }
                 })
@@ -376,7 +379,6 @@
             if(data.event=="play"){
                 $(".c-layer").each(function(){
                     if($(this).find(".vim-video").length){
-                        console.log("found");
                         jLayerAutoPause($(this).parents(".ti-jlayer-slideshow"));
                     }
                 })
@@ -393,13 +395,10 @@
             var data=$.data(e[0]);
             if(!data.autoplay){
             data.autoplay=setTimeout(function(){
-                    console.log(e);
                     jLayerAutoNext(e,data.autoplay)
             }, delay);
-                console.log("starting "+data.autoplay,data,e);
             }
                 $.data(e[0],data);
-            console.log(data);
             }
         window.jlp=0;
         window.jlr=0;
@@ -409,18 +408,15 @@
         var jLayerAutoPause=function(e){
             window.jlp++;
             var data=$.data(e[0]);
-            console.log("pause "+data.autoplay,data);
             clearTimeout(data.autoplay);
-            data['autoplay']=0;
+            data.autoplay=0;
             $.data(e[0],data);
-            console.log(data);
         }
         
         /*
          * To proceed the slider
          */
         var jLayerAutoNext=function(e){
-            console.log("jlayer next");
             var idx=e.find(".layer").index(e.find(".c-layer"))+1;
             var limit=e.find(".layer").length;
             elem={
@@ -443,11 +439,15 @@
         var jLayerYTPlay=function(e){
             data=$.data($(e.target.a).parents(".ti-jlayer-slideshow")[0]);
             if($(e.target.a).parents(".c-layer").length&&data.vidAutoplay){
+                window.yt_players[$(e.target.a).attr("id")]=e.target;
                 e.target.playVideo();
                 jLayerAutoPause($(e.target.a).parents(".ti-jlayer-slideshow"));
             }
         }
         var jLayerYTPause=function(e){
+            if(e.target){
+                window.yt_players[$(e.target.a).attr("id")]=e.target;
+            }
             if(e.data==0||e.data==2){
                 if($(e.target.a).parents(".c-layer").length){
                 jLayerAutoNext($(e.target.a).parents(".ti-jlayer-slideshow"));
@@ -455,20 +455,34 @@
         }
             if(e.data==1){
                 if(!$(e.target.a).parents(".c-layer").length){
-                    console.log(e.target.a);
                     //e.target.a.src = e.target.a.src;
                 }
                 jLayerAutoPause($(e.target.a).parents(".ti-jlayer-slideshow"));
-                console.log("video playing")
             }
         }
         var jLayerPauseVideos=function(video){
+            if(video.length==1){
             f=video.find("iframe");
             if(video.hasClass('vim-video')){
                 url = f.attr('src').split('?')[0];
                 f[0].contentWindow.postMessage('{"method":"pause"}', url);
             }else{
-                f[0].src=f[0].src;
+                    if(window.yt_players[f.attr("id")]){
+                        window.yt_players[f.attr("id")].stopVideo();
+            }
+        }
+            }else{
+                video.each(function(){
+                    f=$(this).find("iframe");
+                    if($(this).hasClass('vim-video')){
+                        url = f.attr('src').split('?')[0];
+                        f[0].contentWindow.postMessage('{"method":"pause"}', url);
+                    }else{
+                        if(window.yt_players[f.attr("id")]){
+                            window.yt_players[f.attr("id")].stopVideo()
+                        }
+                    }
+                });
             }
         }
         var jLayerVideo=function(elem,autoplay){
@@ -493,6 +507,7 @@
                         jLayerAutoPause(elem);
                     }
                     var id=elem.find(".c-layer").find('iframe').attr("id");
+                    if(!window.yt_players[id]){
                     var hndl=document.getElementById(id);
                     hndl.src = hndl.src;
                     var player=new YT.Player(id,{
@@ -501,9 +516,34 @@
                             'onStateChange':jLayerYTPause
                         }
                     });
-                //console.log(player);
+                    }else{
+                        window.yt_players[id].playVideo();
+                    }
                     
                 }
+            }else{
+                //multiple videos
+                elem.find(".c-layer").find(".video").each(function(){
+                    if($(this).hasClass('vim-video')){
+                        var f = $(this).find('iframe'),
+                        url = f.attr('src').split('?')[0];
+                        f[0].contentWindow.postMessage('{"method":"addEventListener","value":"pause"}', url);
+                        f[0].contentWindow.postMessage('{"method":"addEventListener","value":"finish"}', url);
+                        f[0].contentWindow.postMessage('{"method":"addEventListener","value":"play"}', url);
+                    }else{
+                        var id=$(this).find('iframe').attr("id");
+                        if(!window.yt_players[id]){
+                            window.yt_players[id]=false;
+                            var hndl=document.getElementById(id);
+                            hndl.src = hndl.src;
+                            var player=new YT.Player(id,{
+                                events: {
+                                    'onStateChange':jLayerYTPause
+            }
+                            });
+        }
+                    }
+                })
             }
         }
         elem.bullets=$("#"+$(elem).attr("id")+"-bullets");
@@ -557,7 +597,6 @@
                 $(this).addClass("anim-finished");
             }
             if($(this).parents(".c-layer").length){
-                //console.log(window.layer_count);
                 if($(this).parent(".layer").find(".anim").length==$(this).parent(".layer").find(".anim-finished").length){
                     $(this).parent(".layer").trigger("jAnimSlideFinish");
                 }
@@ -613,7 +652,6 @@ var before = document.getElementsByTagName("script")[0];
 before.parentNode.insertBefore(s, before);
                     
 function onYouTubePlayerAPIReady() {
-//console.log("ready");
 }
 /** Sets width of a text element so that animation effects can be applied to them neatly 
  *  @param Object elem text element
@@ -638,6 +676,5 @@ jQuery(document).ready(function(){
             'delay':jQuery(this).find(".ti-delay").val(),
             'vidAutoplay':jQuery(this).find(".ti-autoplay").val()
         });
-        console.log(jQuery(this).find(".ti-delay").val(),$(this).find(".ti-autoplay").val(),jQuery("#"+$(this).attr("id")));
     })
 });

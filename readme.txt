@@ -17,9 +17,9 @@ The jquery plugin used by jLayer parallax slider is highly optimized and feature
 
 The plugin also features a powerful inbuilt editor, that will allow you to configure every single detail of the slider without any coding knowledge. Using inbuilt editor's drag and drop interface you can easily add/edit slide's individual item, while controling different animation options.
 
- [jLayer Parallax Slider homepage](http://unizoe.com/product/jlayer-parallax-wordpress-plugin/ "Plugin homepage")
+ [jLayer Parallax Slider homepage](http://www.unizoe.com/products/jlayer-parallax-wordpress-plugin/ "Plugin homepage")
 
- [jLayer Parallax Slider demo](http://unizoe.com/twist-it-demo/slider-demo/ "Plugin demo")
+ [jLayer Parallax Slider demo](http://www.unizoe.com/demos/jlayer-parallax-slider/ "Plugin demo")
 
 == Installation ==
 
@@ -47,4 +47,8 @@ You can add a slider to a post using shortcode [jlayer-parallax id='slider_id'].
 == Changelog ==
 
 = 1.0 =
+* Better video handling
+* Overall admin panel changes for adding, removing and updating objects
+* Added Link objects
+* Integrated 3 fonts
 * Release

@@ -58,6 +58,7 @@
 }
 .ti-jlayer-slideshow .anim{
     position: absolute;
+    max-width: none!important;
 }
 .ti-jlayer-slideshow .c-layer .anim{
     z-index: 100;
@@ -106,4 +107,21 @@
     z-index: 999;
     background: url('../images/jlayer-loading.gif') center center #ffffff no-repeat;
     position: absolute;
+}
+.font-sansation{
+    font-family: 'SansationBold',sans-serif;
+}
+.font-opensans{
+    font-family: 'OpenSansLight',sans-serif;
+}
+.font-ballpark{
+    font-family: 'BallparkWeiner',sans-serif;
+}
+a.anim{
+    padding-right:25px;
+    background: url('../images/link.png') no-repeat center right;
+    font-size: 18px;
+    font-family: 'OpenSansLight',sans-serif;
+    line-height: 18px;
+    text-decoration: none;
 }
