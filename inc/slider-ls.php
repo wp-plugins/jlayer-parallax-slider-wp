@@ -9,11 +9,13 @@
  * @package twistItLayerSlider
  */
 class LayerSlider {
+
     /**
      * all stored sliders
      * @var array 
      */
     public $sliders = array();
+
     /**
      * all stored slides
      * @var array 
@@ -124,7 +126,7 @@ class LayerSlider {
      * @return void
      */
     public function getSlidesIframe() {
-        require_once (dirname(__FILE__)."/iframe-ls-slides.php");
+        require_once (dirname(__FILE__) . "/iframe-ls-slides.php");
     }
 
     /**
@@ -158,14 +160,14 @@ class LayerSlider {
      * @return void
      */
     public function deleteSlide() {
-        $sliders = get_option('ti_ls_slides', array());
-        foreach ($sliders as $key => $slider) {
-            if ($slider == $_REQUEST['id']) {
-                unset($sliders[$key]);
+        $slides = get_option('ti_ls_slides', array());
+        foreach ($slides as $key => $slide) {
+            if ($slide == $_REQUEST['id']) {
+                unset($slides[$key]);
                 break;
             }
         }
-        update_option('ti_ls_sliders', $sliders);
+        update_option('ti_ls_slides', $slides);
         return delete_option($_REQUEST['id']);
     }
 
@@ -177,7 +179,7 @@ class LayerSlider {
      * @return void
      */
     public function deleteSlider() {
-        
+
         $sliders = get_option('ti_ls_sliders', array());
         foreach ($sliders as $key => $slider) {
             if ($slider == $_REQUEST['id']) {
@@ -213,7 +215,7 @@ class LayerSlider {
      * @return void
      */
     public function getSlidePage() {
-        require_once (dirname(__FILE__)."/ls-slides.php");
+        require_once (dirname(__FILE__) . "/ls-slides.php");
     }
 
     /**
@@ -222,7 +224,7 @@ class LayerSlider {
      * @return void
      */
     public function getSliderPage() {
-        require_once (dirname(__FILE__)."/ls-sliders.php");
+        require_once (dirname(__FILE__) . "/ls-sliders.php");
     }
 
 }
@@ -247,8 +249,8 @@ function sp_ls_topmenu() {
     }
     ?>
     <div id="sp-ls-topmenu">
-        <a href="themes.php?page=jlayer-parallax-slider&tab=sliders" class="<?php echo(($current == "sliders") ? 'active' : ''); ?>"><?php _e('Sliders');?></a>
-        <a href="themes.php?page=jlayer-parallax-slider&tab=slides" class="<?php echo(($current == "slides") ? 'active' : ''); ?>"><?php _e('Slides');?></a>
+        <a href="themes.php?page=jlayer-parallax-slider&tab=sliders" class="<?php echo(($current == "sliders") ? 'active' : ''); ?>"><?php _e('Sliders'); ?></a>
+        <a href="themes.php?page=jlayer-parallax-slider&tab=slides" class="<?php echo(($current == "slides") ? 'active' : ''); ?>"><?php _e('Slides'); ?></a>
         <span class="sp-clear"></span>
     </div>
 <?php }
