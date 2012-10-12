@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="sp-ls-slide-info">
                                     <em class="sp-ls-slide-count"><?php echo count($slider->slides); ?> Slide(s)</em>
-                                    <span class="sp-sc-text">[ti-jlayer-parallax id ="<?php echo(array_search($slider_id,$all_sliders)); ?>" /]</span>
+                                    <span class="sp-sc-text">[jlayer-parallax id ="<?php echo(array_search($slider_id,$all_sliders)); ?>" /]</span>
                                 </div>
                             </div>
                             <?php
