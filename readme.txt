@@ -17,7 +17,7 @@ The jquery plugin used by jLayer parallax slider is highly optimized and feature
 
 The plugin also features a powerful inbuilt editor, that will allow you to configure every single detail of the slider without any coding knowledge. Using inbuilt editor's drag and drop interface you can easily add/edit slide's individual item, while controling different animation options.
 
- [jLayer Parallax Slider homepage](http://www.unizoe.com/products/jlayer-parallax-wordpress-plugin/ "Plugin homepage")
+ [jLayer Parallax Slider homepage](http://www.unizoe.com/products/jlayer-parallax-slider/ "Plugin homepage")
 
  [jLayer Parallax Slider demo](http://www.unizoe.com/demos/jlayer-parallax-slider/ "Plugin demo")
 
